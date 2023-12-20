@@ -1,0 +1,38 @@
+{
+  "name": "nx-quickstart-gen",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "A quickstart for Nx with Nest.js and Next.js",
+  "main": "./src/lib/project-manager.js",
+  "bin": {
+    "init": "src/lib/project-manager.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nx-quickstart/nx-quickstart-web.git"
+  },
+  "keywords": [
+    "nx",
+    "nest",
+    "next",
+    "quickstart",
+    "monorepo",
+    "typescript",
+    "prisma",
+    "typeorm",
+    "shadcn/ui",
+    "tailwidncss"
+  ],
+  "author": {
+    "name": "Gurin Mihail",
+    "email": "mike.gurin21@gmail.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nx-quickstart/nx-quickstart-web/issues"
+  },
+  "homepage": "https://github.com/nx-quickstart/nx-quickstart-web#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

@@ -13,8 +13,24 @@
             "allow": [],
             "depConstraints": [
               {
-                "sourceTag": "*",
-                "onlyDependOnLibsWithTags": ["*"]
+                "sourceTag": "scope:shared",
+                "onlyDependOnLibsWithTags": ["scope:shared"]
+              },
+              {
+                "sourceTag": "scope:server",
+                "onlyDependOnLibsWithTags": ["scope:shared", "scope:server"]
+              },
+              {
+                "sourceTag": "scope:web",
+                "onlyDependOnLibsWithTags": [
+                  "scope:shared",
+                  "scope:web",
+                  "exception:ulim-server-utils-trpc"
+                ]
+              },
+              {
+                "sourceTag": "scope:cli",
+                "onlyDependOnLibsWithTags": ["scope:shared", "scope:cli"]
               }
             ]
           }
