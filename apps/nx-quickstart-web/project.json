@@ -1,0 +1,58 @@
+{
+  "name": "nx-quickstart-web",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/nx-quickstart-web",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/next:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/nx-quickstart-web"
+      },
+      "configurations": {
+        "development": {
+          "outputPath": "apps/nx-quickstart-web"
+        },
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/next:server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "nx-quickstart-web:build",
+        "dev": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "nx-quickstart-web:build:development",
+          "dev": true
+        },
+        "production": {
+          "buildTarget": "nx-quickstart-web:build:production",
+          "dev": false
+        }
+      }
+    },
+    "export": {
+      "executor": "@nx/next:export",
+      "options": {
+        "buildTarget": "nx-quickstart-web:build:production"
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/nx-quickstart-web/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    }
+  },
+  "tags": []
+}
