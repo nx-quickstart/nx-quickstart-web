@@ -3,9 +3,8 @@
   "version": "0.0.1",
   "type": "module",
   "description": "A quickstart for Nx with Nest.js and Next.js",
-  "main": "./src/lib/project-manager.js",
   "bin": {
-    "init": "src/lib/project-manager.js"
+    "nx-quickstart-gen": "./src/lib/project-manager.js"
   },
   "repository": {
     "type": "git",
@@ -34,5 +33,13 @@
   "homepage": "https://github.com/nx-quickstart/nx-quickstart-web#readme",
   "engines": {
     "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "execa": "^8.0.1",
+    "inquirer": "^9.2.12",
+    "ora": "^7.0.1",
+    "simple-git": "^3.21.0",
+    "tslib": "^2.6.2"
   }
 }
