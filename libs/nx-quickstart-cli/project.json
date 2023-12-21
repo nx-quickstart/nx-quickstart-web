@@ -12,7 +12,6 @@
         "tsConfig": "libs/nx-quickstart-cli/tsconfig.lib.json",
         "packageJson": "libs/nx-quickstart-cli/package.json",
         "main": "libs/nx-quickstart-cli/src/index.ts",
-        "type": "module",
         "assets": ["libs/nx-quickstart-cli/*.md"]
       }
     },

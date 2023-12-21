@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 import inquirer from 'inquirer';
 import { SetupTemplate } from './setup.js';
 
@@ -50,5 +51,3 @@ export class projectManager {
 
 const project = new projectManager();
 project.setupProject();
-
-export default projectManager;
