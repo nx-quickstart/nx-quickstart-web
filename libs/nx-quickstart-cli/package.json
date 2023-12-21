@@ -1,10 +1,10 @@
 {
-  "name": "nx-quickstart-gen",
-  "version": "0.0.1",
+  "name": "nx-quickstart",
+  "version": "0.0.0",
   "type": "module",
   "description": "A quickstart for Nx with Nest.js and Next.js",
   "bin": {
-    "nx-quickstart-gen": "./src/lib/project-manager.js"
+    "nx-quickstart": "./src/lib/project-manager.js"
   },
   "repository": {
     "type": "git",
