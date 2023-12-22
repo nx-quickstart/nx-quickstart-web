@@ -15,8 +15,14 @@ This project was created to speed-up development proccess and give a set of pre-
 
 ## Start the app
 
-1. Generate a nx project template use `bash npx nx-quickstart` this will install all necessary dependencies and promts your preferences.
-2. `bash npm run dev`
+1. Generate a nx project template this will install all necessary dependencies and promts your preferences.
+```bash 
+npx nx-quickstart
+```
+2. Run development server
+```bash
+npm run dev
+```
 3. Open your browser and navigate to http://localhost:4200/. Happy coding!
 
 ## Templates
