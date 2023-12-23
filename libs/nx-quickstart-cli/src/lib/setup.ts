@@ -10,7 +10,7 @@ import { TailwindManager } from './tailwind-setup/tailwind-setup.js';
 type Options = {
   projectName: string;
   destinationDir: string;
-  database: 'Prisma';
+  orm: 'Prisma' | 'TypeORM';
   shadcn: string;
   tailwind: string;
 };
@@ -30,7 +30,7 @@ export class SetupTemplate {
    */
   async cloneRepository(): Promise<void> {
     try {
-      const template = PROJECT_TEMPLATE_CHOISES[this.options.database];
+      const template = PROJECT_TEMPLATE_CHOISES[this.options.orm];
       const repositoryURL = `https://github.com/nx-quickstart/${template}.git`;
       await simpleGit().clone(
         repositoryURL,
@@ -84,7 +84,7 @@ export class SetupTemplate {
    */
   async startSetup(): Promise<void> {
     try {
-      const spinner = ora('Setting up project...').start();
+      const spinner = ora('Setting up your project...').start();
       await this.cloneRepository();
       await this.installDependencies();
       await this.updatePackageJson();

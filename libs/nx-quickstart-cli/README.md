@@ -13,7 +13,35 @@ A CLI for generating nx monorepo just with one comand.
 
 ## Usage
 
-Use `npx nx-quickstart`, this will install dependencies and also promts your preferences
+1. Generate a nx project template this will install all necessary dependencies and promts your preferences.
+
+```bash
+npx nx-quickstart@latest
+```
+
+2. Provide necessary database env variable
+
+   - TypeORM
+     ```env
+     DB_HOST=
+     DB_USER=
+     DB_PASSWORD=
+     DB_NAME=
+     ```
+
+   ````
+   - Prisma
+   ```env
+     DATABASE_PRISMA_URL=
+   ````
+
+3. Run development server
+
+```bash
+npm run dev
+```
+
+4. Open your browser and navigate to http://localhost:4200/. Happy coding!
 
 # License
 
