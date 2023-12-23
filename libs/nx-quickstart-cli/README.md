@@ -22,6 +22,7 @@ npx nx-quickstart@latest
 2. Provide necessary database env variable
 
    - TypeORM
+
      ```env
      DB_HOST=
      DB_USER=
@@ -29,11 +30,11 @@ npx nx-quickstart@latest
      DB_NAME=
      ```
 
-   ````
    - Prisma
+
    ```env
      DATABASE_PRISMA_URL=
-   ````
+   ```
 
 3. Run development server
 
