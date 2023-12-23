@@ -1,5 +1,6 @@
 export const PROJECT_TEMPLATE_CHOISES = {
   Prisma: 'prisma-template',
+  TypeORM: 'typeorm-template',
 };
 
 export const SHADCN_DEPENDENCIES = [

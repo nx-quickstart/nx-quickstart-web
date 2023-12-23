@@ -27,9 +27,9 @@ export class projectManager {
       },
       {
         type: 'list',
-        name: 'database',
-        message: 'Choose a database:',
-        choices: ['Prisma'],
+        name: 'orm',
+        message: 'Choose ORM library (Object Relational Mapper): ',
+        choices: ['Prisma', 'TypeORM'],
       },
       {
         type: 'input',

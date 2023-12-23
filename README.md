@@ -16,14 +16,34 @@ This project was created to speed-up development proccess and give a set of pre-
 ## Start the app
 
 1. Generate a nx project template this will install all necessary dependencies and promts your preferences.
-```bash 
-npx nx-quickstart
+
+```bash
+npx nx-quickstart@latest
 ```
-2. Run development server
+
+2. Provide necessary database env variable
+
+   - TypeORM
+     ```env
+     DB_HOST=
+     DB_USER=
+     DB_PASSWORD=
+     DB_NAME=
+     ```
+
+   ````
+   - Prisma
+   ```env
+     DATABASE_PRISMA_URL=
+   ````
+
+3. Run development server
+
 ```bash
 npm run dev
 ```
-3. Open your browser and navigate to http://localhost:4200/. Happy coding!
+
+4. Open your browser and navigate to http://localhost:4200/. Happy coding!
 
 ## Templates
 
