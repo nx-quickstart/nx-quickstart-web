@@ -2,6 +2,7 @@ import { execa } from 'execa';
 import { logger } from '../utils.js';
 import chalk from 'chalk';
 import { writeFile } from 'fs/promises';
+import ora from 'ora';
 
 export class TailwindManager {
   private highlight = (text: string) => chalk.cyan(text);
@@ -19,8 +20,8 @@ export class TailwindManager {
   async addTailwindCss(): Promise<void> {
     try {
       await execa(
-        'npx',
-        ['nx', 'g', 'setup-tailwind', '--project=nx-starter-template-client'],
+        'pnpm dlx',
+        ['nx', 'g', 'setup-tailwind', '--project=frontend'],
         {
           cwd: `${this.destinationUrl}/${this.projectName}`,
         },
@@ -40,7 +41,7 @@ export class TailwindManager {
   async updateGlobalCss(): Promise<void> {
     try {
       await writeFile(
-        `${this.destinationUrl}/${this.projectName}/apps/nx-starter-template-client/app/global.css`,
+        `${this.destinationUrl}/${this.projectName}/apps/frontend/app/global.css`,
         `
         @tailwind base;
         @tailwind components;
@@ -63,8 +64,10 @@ export class TailwindManager {
    */
   async setupTailwind(): Promise<void> {
     try {
+      const spinner = ora('Setting up tailwindcss...').start();
       await this.addTailwindCss();
       await this.updateGlobalCss();
+      spinner.succeed('tailwindcss setup complete!');
     } catch (error) {
       logger.error(
         `Error while setting up ${this.highlight('tailwindcss')}`,

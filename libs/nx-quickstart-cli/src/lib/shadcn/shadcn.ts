@@ -10,6 +10,7 @@ import { logger } from '../utils.js';
 import { execa } from 'execa';
 import chalk from 'chalk';
 import { TailwindManager } from '../tailwind-setup/tailwind-setup.js';
+import ora from 'ora';
 export class ShadcnManager {
   private highlight = (text: string) => chalk.cyan(text);
   constructor(
@@ -37,7 +38,7 @@ export class ShadcnManager {
 
   async addShadcnDependencies(): Promise<void> {
     try {
-      await execa('npm', ['install', ...SHADCN_DEPENDENCIES], {
+      await execa('pnpm', ['install', ...SHADCN_DEPENDENCIES], {
         cwd: `${this.destinationUrl}/${this.projectName}`,
       });
     } catch (error) {
@@ -52,13 +53,13 @@ export class ShadcnManager {
   async createUiLibrary(): Promise<void> {
     try {
       await execa(
-        'npx',
+        'pnpm dlx',
         [
           'nx',
           'g',
           '@nx/next:library',
           'ui',
-          '--directory=/libs/nx-starter-template-client',
+          '--directory=/libs/frontend',
           '--style=none',
           '--linter=eslint',
           '--component=false',
@@ -83,7 +84,7 @@ export class ShadcnManager {
   async updateTailwindConfig(): Promise<void> {
     try {
       await writeFile(
-        `${this.destinationUrl}/${this.projectName}/apps/nx-starter-template-client/tailwind.config.js`,
+        `${this.destinationUrl}/${this.projectName}/apps/frontend/tailwind.config.js`,
         TAILWIND_CONFIG,
       );
     } catch (error) {
@@ -101,7 +102,7 @@ export class ShadcnManager {
   async updateGlobalCss(): Promise<void> {
     try {
       await writeFile(
-        `${this.destinationUrl}/${this.projectName}/apps/nx-starter-template-client/app/global.css`,
+        `${this.destinationUrl}/${this.projectName}/apps/frontend/app/global.css`,
         TAILWIND_GLOBAL_CSS_CONFIGURATION,
       );
     } catch (error) {
@@ -117,12 +118,12 @@ export class ShadcnManager {
   async addTwMergeUtil(): Promise<void> {
     try {
       await writeFile(
-        `${this.destinationUrl}/${this.projectName}/libs/nx-starter-template-client/ui/src/lib/utils.ts`,
+        `${this.destinationUrl}/${this.projectName}/libs/frontend/ui/src/lib/utils.ts`,
         TW_MERGE_UTILS,
       );
 
       await writeFile(
-        `${this.destinationUrl}/${this.projectName}/libs/nx-starter-template-client/ui/src/index.ts`,
+        `${this.destinationUrl}/${this.projectName}/libs/frontend/ui/src/index.ts`,
         `export * from './lib/utils';`,
       );
     } catch (error) {
@@ -162,6 +163,7 @@ export class ShadcnManager {
    */
   async main(): Promise<void> {
     try {
+      const spinner = ora('Setting up shadcn...').start();
       const tailwindManager = new TailwindManager(
         this.destinationUrl,
         this.projectName,
@@ -174,6 +176,7 @@ export class ShadcnManager {
       await this.updateGlobalCss();
       await this.addTwMergeUtil();
       await this.updatePackageJsonScript();
+      spinner.succeed('Shadcn setup complete!');
     } catch (error) {
       logger.error('Error while setting up shadcn', error);
     }

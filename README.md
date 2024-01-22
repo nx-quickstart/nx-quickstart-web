@@ -7,7 +7,7 @@ This project was created to speed-up development proccess and give a set of pre-
 ## Features
 
 1. Full integration with NX
-2. Nest.js and Next.js out of the box
+2. Nest.js,Next.js,.NET out of the box
 3. You choose ORM library, now package have integtation with Prisma but we have in plan to add also typeORM
 4. Typesafe rest via ts-rest
 5. Validation of env out of the box
@@ -15,38 +15,17 @@ This project was created to speed-up development proccess and give a set of pre-
 
 ## Start the app
 
-1. Generate a nx project template this will install all necessary dependencies and promts your preferences.
-
-```bash
-npx nx-quickstart@latest
-```
-
-2. Provide necessary database env variable
-
-   - TypeORM
-   ```env
-   DB_HOST=
-   DB_USER=
-   DB_PASSWORD=
-   DB_NAME=
-   ```
-   - Prisma
-   ```env
-     DATABASE_PRISMA_URL=
-   ```
-
-3. Run development server
-
-```bash
-npm run dev
-```
-
-4. Open your browser and navigate to http://localhost:4200/. Happy coding!
+1. Choose template(you can find the links bellow)
+2. Read template README
+3. Follow up the template `start the app` guide
 
 ## Templates
 
+On every template github page you can found details about `how to start the app`
+
 [Prisma-Template](https://github.com/nx-quickstart/prisma-template)
-[Typeorm-Template-Beta](https://github.com/nx-quickstart/typeorm-template)
+[Typeorm-Template](https://github.com/nx-quickstart/typeorm-template)
+[Dotnet-Template](https://github.com/nx-quickstart/dotnet-template)
 
 This is the templates used for nx projects generation. We also support contribution to them , so feel free to check it.
 
