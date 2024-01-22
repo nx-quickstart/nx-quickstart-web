@@ -1,6 +1,7 @@
 export const PROJECT_TEMPLATE_CHOISES = {
-  Prisma: 'prisma-template',
-  TypeORM: 'typeorm-template',
+  Nextjs_Nestjs_Prisma: 'prisma-template',
+  Nextjs_Nestjs_TypeOrm: 'typeorm-template',
+  Nextjs_Dotnet: 'dotnet-template',
 };
 
 export const SHADCN_DEPENDENCIES = [
@@ -16,14 +17,14 @@ export const SHADCN_CONFIGURATION = {
   rsc: true,
   tsx: true,
   tailwind: {
-    config: 'apps/nx-starter-template-client',
-    css: 'apps/nx-starter-template-client/app/global.css',
+    config: 'apps/frontend',
+    css: 'apps/frontend/app/global.css',
     baseColor: 'neutral',
     cssVariables: true,
   },
   aliases: {
-    components: 'libs/nx-starter-template-client/ui/src/lib',
-    utils: 'libs/nx-starter-template-client/ui/src/lib/utils',
+    components: 'libs/frontend/ui/src/lib',
+    utils: 'libs/frontend/ui/src/lib/utils',
   },
 };
 

@@ -27,9 +27,13 @@ export class projectManager {
       },
       {
         type: 'list',
-        name: 'orm',
-        message: 'Choose ORM library (Object Relational Mapper): ',
-        choices: ['Prisma', 'TypeORM'],
+        name: 'template',
+        message: 'Choose template: ',
+        choices: [
+          'Nextjs_Nestjs_Prisma',
+          'Nextjs_Nestjs_TypeOrm',
+          'Nextjs_Dotnet',
+        ],
       },
       {
         type: 'input',
