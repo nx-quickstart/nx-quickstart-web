@@ -2,7 +2,7 @@ import { writeFile, readFile } from 'fs/promises';
 import { execa } from 'execa';
 import { simpleGit } from 'simple-git';
 import { PROJECT_TEMPLATE_CHOISES } from './constants.js';
-import { logger } from './utils.js';
+import { executionTime, logger } from './utils.js';
 import { ShadcnManager } from './shadcn/shadcn.js';
 import ora from 'ora';
 import { TailwindManager } from './tailwind-setup/tailwind-setup.js';
@@ -47,6 +47,7 @@ export class SetupTemplate {
       spinner.succeed('Repository cloned successfully!');
     } catch (err) {
       logger.error('Error while cloning repository:', err);
+      throw err;
     }
   }
 
@@ -63,6 +64,7 @@ export class SetupTemplate {
       spinner.succeed('Dependencies installed successfully!');
     } catch (error) {
       logger.error('Error installing dependencies:', error);
+      throw error;
     }
   }
 
@@ -73,7 +75,9 @@ export class SetupTemplate {
   async updatePackageJson(): Promise<void> {
     const packageJsonPath = `${this.options.destinationDir}/${this.options.projectName}/package.json`;
     try {
-      const spinner = ora('Updating package.json file...').start();
+      const spinner = ora(
+        `Changing package.json project name to ${this.options.projectName}...`,
+      ).start();
       const packageJsonContent = await readFile(packageJsonPath, 'utf-8');
       const packageJson = JSON.parse(packageJsonContent);
       packageJson.name = this.options.projectName;
@@ -81,6 +85,7 @@ export class SetupTemplate {
       spinner.succeed('package.json file updated successfully!');
     } catch (error) {
       logger.error('Error setting up project:', error);
+      throw error;
     }
   }
 
@@ -106,27 +111,35 @@ export class SetupTemplate {
    */
   async startSetup(): Promise<void> {
     try {
+      const time = executionTime('Project setup time');
       await this.cloneRepository();
       await this.installDependencies();
       await this.updatePackageJson();
+
+      const shadcnManager = new ShadcnManager(
+        this.options.destinationDir,
+        this.options.projectName,
+      );
+
+      const tailwindManager = new TailwindManager(
+        this.options.destinationDir,
+        this.options.projectName,
+      );
+
       if (this.options.template === 'Nextjs_Dotnet') {
         await this.migrateDotnetDb();
       }
+
       if (this.options.shadcn === 'y') {
-        const shadcnManager = new ShadcnManager(
-          this.options.destinationDir,
-          this.options.projectName,
-        );
+        await tailwindManager.setupTailwind();
         await shadcnManager.main();
       }
 
       if (this.options.shadcn === 'n' && this.options.tailwind === 'y') {
-        const tailwindManager = new TailwindManager(
-          this.options.destinationDir,
-          this.options.projectName,
-        );
         await tailwindManager.setupTailwind();
       }
+
+      time.end();
     } catch (error) {
       logger.error('Error while setting up project:', error);
     }

@@ -6,7 +6,8 @@
     "prepublishOnly": "pnpm nx build nx-quickstart-cli",
     "pub:cli": "pnpm nx publish nx-quickstart-cli",
     "dev": "pnpm dlx concurrently --kill-others \"npm:dev:web\"",
-    "dev:web": "pnpm nx run nx-quickstart-web:dev"
+    "dev:web": "pnpm nx run nx-quickstart-web:dev",
+    "dev:cli": "node dist/libs/nx-quickstart-cli/src/lib/project-manager.js"
   },
   "dependencies": {
     "axios": "^1.0.0",

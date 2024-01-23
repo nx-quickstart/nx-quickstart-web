@@ -20,7 +20,7 @@ export class TailwindManager {
   async addTailwindCss(): Promise<void> {
     try {
       await execa(
-        'pnpm dlx',
+        'pnpm exec',
         ['nx', 'g', 'setup-tailwind', '--project=frontend'],
         {
           cwd: `${this.destinationUrl}/${this.projectName}`,
@@ -31,6 +31,7 @@ export class TailwindManager {
         `Error while initializing ${this.highlight('tailwindcss')}}`,
         error,
       );
+      throw error;
     }
   }
 
@@ -50,6 +51,7 @@ export class TailwindManager {
       );
     } catch (error) {
       logger.error(`Error updating ${this.highlight('global.css')}`, error);
+      throw error;
     }
   }
 
@@ -65,8 +67,7 @@ export class TailwindManager {
   async setupTailwind(): Promise<void> {
     try {
       const spinner = ora('Setting up tailwindcss...').start();
-      await this.addTailwindCss();
-      await this.updateGlobalCss();
+      await Promise.all([this.addTailwindCss(), this.updateGlobalCss()]);
       spinner.succeed('tailwindcss setup complete!');
     } catch (error) {
       logger.error(

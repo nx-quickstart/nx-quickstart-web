@@ -9,16 +9,15 @@ import {
 import { logger } from '../utils.js';
 import { execa } from 'execa';
 import chalk from 'chalk';
-import { TailwindManager } from '../tailwind-setup/tailwind-setup.js';
 import ora from 'ora';
 export class ShadcnManager {
+  private basePath: string;
   private highlight = (text: string) => chalk.cyan(text);
   constructor(
     private destinationUrl: string,
     private projectName: string,
   ) {
-    this.destinationUrl = destinationUrl;
-    this.projectName = projectName;
+    this.basePath = `${this.destinationUrl}/${this.projectName}`;
   }
 
   /**
@@ -33,6 +32,7 @@ export class ShadcnManager {
       );
     } catch (error) {
       logger.error('Error while creating components.json', error);
+      throw error;
     }
   }
 
@@ -43,6 +43,7 @@ export class ShadcnManager {
       });
     } catch (error) {
       logger.error('Error while adding shadcn dependencies', error);
+      throw error;
     }
   }
 
@@ -53,7 +54,7 @@ export class ShadcnManager {
   async createUiLibrary(): Promise<void> {
     try {
       await execa(
-        'pnpm dlx',
+        'pnpm exec',
         [
           'nx',
           'g',
@@ -74,6 +75,7 @@ export class ShadcnManager {
         `Error while creating ${this.highlight('ui library')}`,
         error,
       );
+      throw error;
     }
   }
 
@@ -92,6 +94,7 @@ export class ShadcnManager {
         `Error updating ${this.highlight('tailwind.config.js')}`,
         error,
       );
+      throw error;
     }
   }
 
@@ -107,6 +110,7 @@ export class ShadcnManager {
       );
     } catch (error) {
       logger.error(`Error updating ${this.highlight('global.css')}`, error);
+      throw error;
     }
   }
 
@@ -128,6 +132,7 @@ export class ShadcnManager {
       );
     } catch (error) {
       logger.error('Failed to add shadcn necessary utils', error);
+      throw error;
     }
   }
 
@@ -147,6 +152,7 @@ export class ShadcnManager {
         'Error adding shadcn add command to package.json stripts',
         error,
       );
+      throw error;
     }
   }
 
@@ -164,18 +170,15 @@ export class ShadcnManager {
   async main(): Promise<void> {
     try {
       const spinner = ora('Setting up shadcn...').start();
-      const tailwindManager = new TailwindManager(
-        this.destinationUrl,
-        this.projectName,
-      );
-      await tailwindManager.setupTailwind();
-      await this.addComponentsJson();
       await this.createUiLibrary();
-      await this.addShadcnDependencies();
-      await this.updateTailwindConfig();
-      await this.updateGlobalCss();
-      await this.addTwMergeUtil();
-      await this.updatePackageJsonScript();
+      await this.addTwMergeUtil(),
+        await Promise.all([
+          this.addComponentsJson(),
+          this.addShadcnDependencies(),
+          this.updateTailwindConfig(),
+          this.updateGlobalCss(),
+          this.updatePackageJsonScript(),
+        ]);
       spinner.succeed('Shadcn setup complete!');
     } catch (error) {
       logger.error('Error while setting up shadcn', error);
